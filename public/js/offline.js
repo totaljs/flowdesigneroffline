@@ -175,7 +175,6 @@ COMPONENT('websocket', function(self) {
 	self.send = function(msg) {
 
 		var obj;
-		console.log(msg);
 
 		switch (msg.TYPE) {
 			case 'flow':
