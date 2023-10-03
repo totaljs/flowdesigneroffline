@@ -105,7 +105,7 @@ FUNC.parsecomponent = function(val) {
 
 COMPONENT('websocket', function(self) {
 
-	var empty = { id: Date.now().toString(36), components: {}, design: {}, variables: {}, readme: '', name: 'FlowStream' };
+	var empty = { id: Date.now().toString(36), components: {}, design: {}, variables: {}, readme: '', name: 'FlowStream', cloning: true };
 	var flow = CLONE(empty);
 
 	self.load = function(val) {

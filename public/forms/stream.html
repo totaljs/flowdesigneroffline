@@ -1,4 +1,4 @@
-<ui-component name="box" path="common.form" config="if:CLASS;title:@(FlowStream metadata);icon:ti ti-object-group;autofocus:true;reload:?/reload;scrollbar:1;submit:?/submit;width:800" class="hidden" plugin="CLASS">
+<ui-component name="box" path="common.form" config="if:CLASS;title:@(FlowStream metadata);icon:ti ti-object-group;autofocus:true;scrollbar:1;submit:?/submit;width:800" class="hidden" plugin="CLASS">
 	<div class="padding bg-smoke npb">
 		<div class="grid-2">
 			<div class="m">
@@ -15,7 +15,7 @@
 
 		<div class="row">
 			<div class="col-md-3 m">
-				<ui-component name="input" path="?.group" config="dirsource:common.groupsform;dircustom:1;dirempty:@(Empty);dirminwidth:300;dirplaceholder:@(Choose or enter new)">@(Group)</ui-component>
+				<ui-component name="input" path="?.id" config="required:1;type:slug;monospace:1;align:1" class="b">@(Identifier)</ui-component>
 			</div>
 			<div class="col-md-3 m">
 				<ui-component name="input" path="?.reference" config="align:1">@(Reference)</ui-component>
@@ -61,9 +61,6 @@
 <script>
 
 	PLUGIN(function(exports) {
-
-		exports.reload = function(com) {
-		};
 
 		exports.submit = function(hide) {
 
