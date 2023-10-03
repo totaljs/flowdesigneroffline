@@ -94,6 +94,7 @@
 <ui-component name="importer" path="common.form" config="if:groupform;url:@{#}/forms/group.html"></ui-component>
 <ui-component name="importer" path="common.form" config="if:noteform;url:@{#}/forms/note.html"></ui-component>
 <ui-component name="importer" path="common.form" config="if:publishform;url:@{#}/forms/publish.html"></ui-component>
+<ui-component name="importer" path="common.form" config="if:formendpoint;url:@{#}/forms/endpoint.html"></ui-component>
 
 <ui-component name="websocket"></ui-component>
 
@@ -176,26 +177,33 @@
 			opt.items = [];
 
 			opt.items.push({ id: 'create', name: '@(Create component)', icon: 'ti ti-code' });
-			opt.items.push('-');
 			opt.items.push({ id: 'opensource', name: '@(Download components)', icon: 'ti ti-download' });
+			opt.items.push({ id: 'link', name: '@(Link endpoint)', icon: 'ti ti-network' });
 
 			opt.callback = function(item) {
 
 				switch (item.id) {
+					case 'link':
+						exports.link();
+						break;
 					case 'create':
 						exports.create();
 						break;
 					case 'opensource':
 						exports.components();
 						break;
-					case 'sources':
-						exports.sources();
-						break;
 				}
 
 			};
 
 			SETTER('menu/show', opt);
+		};
+
+		exports.link = function() {
+			AJAX('GET /endpoint.txt @showloading', function(response) {
+				SET('formendpoint @default', { flowstreamid: flowstreamid, body: response });
+				SET('common.form @hideloading', 'formendpoint');
+			});
 		};
 
 		exports.dropfiles = function(files) {
@@ -813,10 +821,6 @@
 				for (var item of add)
 					Designer.op.select(item.id, true);
 			}, 500, add);
-		};
-
-		exports.sources = function() {
-			SET('common.form', 'sourcesform');
 		};
 
 		exports.drop = function(e, grid) {
