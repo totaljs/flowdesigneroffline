@@ -95,6 +95,7 @@
 <ui-component name="importer" path="common.form" config="if:noteform;url:@{#}/forms/note.html"></ui-component>
 <ui-component name="importer" path="common.form" config="if:publishform;url:@{#}/forms/publish.html"></ui-component>
 <ui-component name="importer" path="common.form" config="if:formendpoint;url:@{#}/forms/endpoint.html"></ui-component>
+<ui-component name="importer" path="common.form" config="if:formlist;url:@{#}/forms/list.html"></ui-component>
 
 <ui-component name="websocket"></ui-component>
 
@@ -215,8 +216,27 @@
 				reader.onload = function() {
 
 					if (reader.result.isJSON()) {
-						// FlowStream
-						SETTER('websocket/load', PARSE(reader.result));
+
+						var data = PARSE(reader.result);
+						if (data.id) {
+							// FlowStream
+							SETTER('websocket/load', data);
+						} else {
+
+							// Multiple
+							var arr = [];
+							var blacklist = { variables: 1, paused: 1 };
+
+							for (var key in data) {
+								var item = data[key];
+								if (!blacklist[key])
+									arr.push({ id: key, name: item.name, color: item.color, icon: item.icon, group: item.group, data: item });
+							}
+
+							arr.quicksort('name');
+							SET('formlist', { items: arr });
+							SET('common.form', 'formlist');
+						}
 						return;
 					}
 

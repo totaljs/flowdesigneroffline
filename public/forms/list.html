@@ -1,0 +1,38 @@
+<ui-component name="box" path="common.form" config="if:~PATH~;title:@(Choose FlowStream);icon:ti ti-list;autofocus:true;scrollbar:1;submit:?/submit;width:600" class="hidden ~PATH~" plugin="~PATH~">
+	<div class="padding">
+		<ui-bind path="?.items" config="template" class="block listing">
+			<script type="text/html">
+				{{ foreach m in value }}
+				<figure data-search="{{ m.name }}" data-id="{{ m.id }}" class="exec" data-exec="?/load">
+					<section>
+						<i class="{{ m.icon | empty('ti ti-flow') }} mr5"></i>{{ m.name }}{{ if m.group }} <span class="badge badge-silver badge-medium ml5">{{ m.group }}</span>{{ fi }}
+					</section>
+				</figure>
+				{{ end }}
+			</script>
+		</ui-bind>
+	</div>
+	<nav>
+		<button name="cancel" style="width:100%">@(Cancel)</button>
+	</nav>
+</ui-component>
+
+<script>
+
+	PLUGIN(function(exports) {
+
+		exports.submit = function(hide) {
+			hide();
+		};
+
+		exports.load = function(el) {
+			var id = ATTRD(el);
+			var model = exports.model;
+			var item = model.items.findItem('id', id);
+			SETTER('websocket/load', item.data);
+			NUL('common.form');
+		};
+
+	});
+
+</script>
