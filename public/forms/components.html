@@ -125,12 +125,15 @@
 			opt.components = [];
 
 			var queue = [];
+			var arr = common.components.split(',').trim();
 
-			if (common.components)
-				queue.push(next => refresh(common.components, opt, next));
+			if (common.components2) {
+				var tmp = common.components2.split(',').trim();
+				for (var m of tmp)
+					arr.push(m);
+			}
 
-			if (common.components2)
-				queue.push(next => refresh(common.components2, opt, next));
+			arr.forEach(url => queue.push(next => refresh(url, opt, next)));
 
 			if (enterprise.is)
 				queue.push(next => refresh('https://enterprise.totaljs.com/download/flowcomponents/?token=' + enterprise.token, opt, next));

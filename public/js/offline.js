@@ -116,6 +116,7 @@ COMPONENT('websocket', function(self) {
 		}
 
 		flow = val;
+		W.common.components = val.repository || 'https://cdn.totaljs.com/flowstream/webcomponents/db.json';
 		self.send({ TYPE: 'flow' });
 	};
 
