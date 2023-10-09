@@ -1,5 +1,5 @@
 <ui-component name="searchinput" path="%flowsearch" config="type:search;placeholder:@(Search components);autofocus:2"></ui-component>
-<ui-component name="viewbox" config="scrollbar:1;visibleY:1;parent:auto;margin:28;initdelay:500;scrollbarshadow:1" class="invisible">
+<ui-component name="viewbox" config="scrollbar:1;visibleY:1;parent:auto;margin:28;initdelay:500;scrollbarshadow:1" class="invisible flowcomponentscontainer">
 
 	<ui-component name="empty" path="flow.components2" config="parent:auto;icon:ti ti-plug">
 
@@ -11,19 +11,17 @@
 		</script>
 
 		<div>
-			<ui-component name="search" path="%flowsearch" config="selector:figure">
+			<ui-component name="search" path="%flowsearch" config="selector:.exec3">
 				<ui-bind path="!flow.components2" config="template" class="flowcomponents block">
 					<script type="text/html">
-					<ui-bind path="flow.head.total" config="show:value>=4050" class="hidden block">
-						<div class="caption">@(Designer)</div>
-						<figure data-id="group" draggable="true" data-search="@(Group)">
-							<i class="ti ti-object-group"></i>
-							<div class="name"><div>@(Group)</div></div>
-						</figure>
-						<div style="margin:5px 10px 0 10px" class="fs11">
-							<div><span class="exec link" data-exec="flow/components">@(Download components)</span></div>
-						</div>
-					</ui-bind>
+					<figure data-id="group" draggable="true" data-search="@(Group)" style="margin:10px 10px 5px">
+						<i class="ti ti-object-group"></i>
+						<div class="name"><div>@(Group)</div></div>
+					</figure>
+					<div style="margin:5px 10px 0 10px" class="fs11">
+						<div><span class="exec link" data-exec="flow/components">@(Download components)</span></div>
+					</div>
+					<div class="items">
 					{{ foreach g in value }}
 						<div class="caption">{{ g.name }}</div>
 						<div>
@@ -35,12 +33,12 @@
 						{{ end }}
 						</div>
 					{{ end }}
+					</div>
 					</script>
 				</ui-bind>
 			</ui-component>
 			<br />
 		</div>
-
 	</ui-component>
 
 </ui-component>
