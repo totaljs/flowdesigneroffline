@@ -542,6 +542,7 @@
 					move = true;
 
 				flow.settingsid = component.id;
+				flow.settingsinstanceid = instance.id;
 				RECONFIGURE('#flowsettings', { title: '@(Configuration): ' + component.name, width: (component.meta ? component.meta.settingswidth : 0) || 800 });
 
 				var name = component.name.slug().replace(/\-/g, '');
@@ -558,7 +559,8 @@
 
 				var config = response;
 				var path = 'flow.settings.' + id;
-				var eventdata = { id: instance.id, name: name, path: path, config: config, component: component };
+				var touchinstance = flowinstances.instances[instance.id];
+				var eventdata = { id: instance.id, name: name, path: path, config: config, component: component, instance: touchinstance };
 
 				eventdata.call = function(data, callback, globalcall) {
 
