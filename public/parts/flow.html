@@ -1967,9 +1967,9 @@
 				data.TYPE = 'ready';
 				data.flow = 1;
 				W.parent.postMessage(STRINGIFY(data), '*');
+				$(document).on('click', () => W.parent.postMessage(STRINGIFY({ TYPE: 'focus', flow: 1 })));
 			})();
 		}
-
 
 	});
 
