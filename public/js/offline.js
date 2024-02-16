@@ -222,6 +222,14 @@ COMPONENT('websocket', function(self) {
 				EMIT('message', obj);
 				break;
 
+			case 'note':
+				obj = {};
+				obj.id = msg.id;
+				obj.TYPE = 'flow/note';
+				obj.data = msg.data;
+				EMIT('message', obj);
+				break;
+
 			case 'trigger':
 				// msg.id
 				break;
