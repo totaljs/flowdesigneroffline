@@ -232,6 +232,7 @@ COMPONENT('websocket', function(self) {
 
 			case 'trigger':
 				// msg.id
+				EMIT('send', msg);
 				break;
 
 			case 'save':
